@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/sample.css">
+  <title>じゃんけん</title>
+</head>
+
+<body>
+  <header>
+    <h1>じゃんけん</h1>
+  </header>
+
+  <main>
+    <ul>
+      <li id="gu_btn">グー</li>
+      <li id="cho_btn">チョキ</li>
+      <li id="par_btn">パー</li>
+    </ul>
+    <div id="com_hand">コンピュータの出した手は？</div>
+    <div id="result">結果は？</div>
+  </main>
+
+  <footer>フッター</footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    //ここに処理を追加
+$(document).ready(function() {
+  
+  function computerChoice() {
+    const randomNum = Math.floor(Math.random() * 3); // Generate a number between 0 to 2
+    if (randomNum === 0) return "グー";
+    if (randomNum === 1) return "チョキ";
+    if (randomNum === 2) return "パー";
+  }
+
+  function judge(player, computer) {
+    if (player === computer) return "あいこ！";
+
+    if (player === "グー") {
+      if (computer === "チョキ") return "あなたの勝ち！";
+      if (computer === "パー") return "あなたの負け…";
+    }
+
+    if (player === "チョキ") {
+      if (computer === "パー") return "あなたの勝ち！";
+      if (computer === "グー") return "あなたの負け…";
+    }
+
+    if (player === "パー") {
+      if (computer === "グー") return "あなたの勝ち！";
+      if (computer === "チョキ") return "あなたの負け…";
+    }
+  }
+
+  $("#gu_btn, #cho_btn, #par_btn").click(function() {
+    const playerChoice = $(this).text();
+    const comChoice = computerChoice();
+    const result = judge(playerChoice, comChoice);
+
+    $("#com_hand").text("コンピュータの出した手は" + comChoice + "です");
+    $("#result").text("結果は... " + result);
+  });
+
+});
+
+
+
+  </script>
+
+</body>
+
+</html>
